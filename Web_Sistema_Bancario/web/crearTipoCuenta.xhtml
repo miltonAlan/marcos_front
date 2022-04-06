@@ -1,0 +1,29 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="crearTipoCuenta">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Crear Tipo de Cuenta</title>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+            <h:form>
+                <p:panelGrid columns="2">
+                    <h:outputText value="Código de la Cuenta : "/>
+                    <p:inputText value="#{JSFManagedCliente.tipoCuenta.codCuenta}"/>
+                    <h:outputText value="Nombre del Tipo de Cuenta "/>
+                    <p:inputText value="#{JSFManagedCliente.tipoCuenta.nomCuenta}"/> 
+                    <p:commandButton value="Grabar" id="btnGrabarTipo" action="#{JSFManagedCliente.grabarTipoCuenta()}"/>
+                </p:panelGrid>
+            </h:form>
+        </h:body>
+    </f:view>
+</html>
+
