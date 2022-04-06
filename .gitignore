@@ -1,0 +1,8 @@
+/logs
+
+*/build
+*/dist
+*/nbproject
+*/build
+build.xml
+persistence.xml
