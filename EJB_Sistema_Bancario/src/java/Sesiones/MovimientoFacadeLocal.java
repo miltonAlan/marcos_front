@@ -5,6 +5,7 @@
 package Sesiones;
 
 import Entidades.Cliente;
+import Entidades.Cuenta;
 import Entidades.Movimiento;
 import java.util.List;
 import javax.ejb.Local;
@@ -30,6 +31,6 @@ public interface MovimientoFacadeLocal {
 
     int count();
 
-    public List<Movimiento> retornarMovimientos(Cliente numCedula);
+    public List<Movimiento> retornarMovimientos(Cliente numCedula,Cuenta numCuenta);
     
 }

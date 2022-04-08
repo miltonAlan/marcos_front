@@ -16,16 +16,19 @@
         <h:body>
             <h:form>
                 <p:panelGrid columns="2">
-                    <h:outputText value="Tipo de Cuenta : "/>
-                    <p:inputText value="#{JSFManagedCliente.codCuenta}"/>
+                    <h:outputText value="Tipo de Cuenta: "/>
+                    <p:selectOneMenu id="codTC" value="#{JSFManagedCliente.codCuenta}">
+                        <f:selectItem itemLabel="Seleccione Tipo Cuenta" itemValue="" />
+                        <f:selectItems value="#{JSFManagedCliente.listaTipoCuentas}" var="listc" itemLabel="#{listc.nomCuenta}" itemValue="#{listc.codCuenta}" />
+                    </p:selectOneMenu>
 
                     <h:outputText value="Número de Cédula del Cliente : "/>
                     <p:selectOneMenu id="cedclie" value="#{JSFManagedCliente.numCedula}">
                         <f:selectItem itemLabel="Seleccione Cliente" itemValue="" />
-                        <f:selectItems value="#{JSFManagedCliente.listaClientes}" var="liscli" itemLabel="#{liscli.apellidos}" itemValue="#{liscli.numCedula}" />
+                        <f:selectItems value="#{JSFManagedCliente.listaClientes}" var="liscli" itemLabel="#{liscli.nombres}" itemValue="#{liscli.numCedula}" />
                     </p:selectOneMenu>
-                    
-                    
+
+
                     <h:outputText value="Número de la Cuenta : "/>
                     <p:inputText value="#{JSFManagedCliente.cuenta.numCuenta}"/> 
                     <h:outputText value="Saldo de le Cuenta : "/>
@@ -33,6 +36,7 @@
                     <p:commandButton value="Grabar" id="btnGrabarCuenta" action="#{JSFManagedCliente.grabarCuenta()}"/>
                 </p:panelGrid>
             </h:form>
+            <h:link outcome="menu" value="Regresar al menu" />
         </h:body>
     </f:view>
 </html>

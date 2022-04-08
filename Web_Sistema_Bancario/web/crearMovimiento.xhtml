@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="crearCliente">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Crear Movimiento</title>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+            <h:form>
+                <p:panelGrid columns="2">
+
+                    <h:outputText value="Número de Cédula del Cliente : "/>
+                    <p:selectOneMenu id="cedclie" value="#{JSFManagedCliente.numCedula}">
+                        <f:selectItem itemLabel="Seleccione Cliente" itemValue="" />
+                        <f:selectItems value="#{JSFManagedCliente.listaClientes}" var="liscli" itemLabel="#{liscli.nombres}" itemValue="#{liscli.numCedula}" />
+                    </p:selectOneMenu>
+
+
+                    <h:outputText value="Número de Cuenta : "/>
+                    <p:selectOneMenu id="codcuen" value="#{JSFManagedCliente.codigoCuenta}">
+                        <f:selectItem itemLabel="Seleccione Cuenta" itemValue="" />
+                        <f:selectItems value="#{JSFManagedCliente.listaCuentas}" var="liscli" itemLabel="#{liscli.numCuenta}" itemValue="#{liscli.numCuenta}" />
+                    </p:selectOneMenu>
+                    
+                    <h:outputText value="Numero movimiento "/>
+                    <p:inputText value="#{JSFManagedCliente.movimiento.numMovimiento}"/>
+                    
+                    <h:outputText value="Fecha movimiento: "/>
+                    <p:calendar value="#{JSFManagedCliente.movimiento.fechaMov}"/>
+
+
+                    <h:outputText value="Valor Credito: "/>
+                    <p:inputText value="#{JSFManagedCliente.movimiento.valCredito}"/>
+
+                    <h:outputText value="Valor Debito "/>
+                    <p:inputText value="#{JSFManagedCliente.movimiento.valDebito}"/>
+
+
+                    <p:commandButton value="Grabar Movimiento" id="btnGrabar" action="#{JSFManagedCliente.grabarMovimiento()}"/>
+                </p:panelGrid>
+            </h:form>
+            <h:link outcome="menu" value="Regresar al menu" />
+        </h:body>
+    </f:view>
+</html>
+

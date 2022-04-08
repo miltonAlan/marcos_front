@@ -15,12 +15,29 @@
 
         <h:body>
             <h:form>
-                <p:dataTable var="idx_mov" value="#{JSFManagedCliente.listaMovimientos}">
+                <h:outputText value="Seleccione Número de Cédula del Cliente : "/>
+                <p:selectOneMenu id="cedclie" value="#{JSFManagedCliente.numCedula}">
+                    <f:selectItem itemLabel="Seleccione Cliente" itemValue="" />
+                    <f:selectItems value="#{JSFManagedCliente.listaClientes}" var="liscli" itemLabel="#{liscli.nombres}" itemValue="#{liscli.numCedula}" />
+                </p:selectOneMenu>
+
+
+                <h:outputText value="Seleccione Número de cuenta : "/>
+                <p:selectOneMenu id="codcuen" value="#{JSFManagedCliente.codigoCuenta}">
+                    <f:selectItem itemLabel="Seleccione Cuenta" itemValue="" />
+                    <f:selectItems value="#{JSFManagedCliente.listaCuentas}" var="liscli" itemLabel="#{liscli.numCuenta}" itemValue="#{liscli.numCuenta}" />
+                </p:selectOneMenu>
+                <p:commandButton value="Buscar Movimiento" id="btnGrabar" action="#{JSFManagedCliente.buscarMovimientos()}" update="tablaMovimientos"/>
+
+                <p:dataTable id="tablaMovimientos" var="idx_mov" value="#{JSFManagedCliente.listaMovimientos}">
                     <f:facet name="titulo">
                         <h:outputText value="Movimientos"/>
                     </f:facet>
                     <p:column headerText="Número de cédula">
                         <h:outputText value="#{idx_mov.numCedula.numCedula}"/>
+                    </p:column>
+                    <p:column headerText="Código de la cuenta">
+                        <h:outputText value="#{idx_mov.numCuenta.numCuenta}"/>
                     </p:column>
                     <p:column headerText="Número de Movimiento">
                         <h:outputText value="#{idx_mov.numMovimiento}"/>
@@ -36,6 +53,7 @@
                     </p:column>
                 </p:dataTable>
             </h:form>
+            <h:link outcome="menu" value="Regresar al menu" />
         </h:body>
     </f:view>
 </html>
