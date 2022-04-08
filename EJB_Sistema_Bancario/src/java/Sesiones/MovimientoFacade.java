@@ -5,6 +5,7 @@
 package Sesiones;
 
 import Entidades.Cliente;
+import Entidades.Cuenta;
 import Entidades.Movimiento;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -32,7 +33,7 @@ public class MovimientoFacade extends AbstractFacade<Movimiento> implements Movi
     }
 
     @Override
-    public List<Movimiento> retornarMovimientos(Cliente numCedula) {
+    public List<Movimiento> retornarMovimientos(Cliente numCedula, Cuenta numCuenta) {
 
 
         /*
@@ -44,8 +45,9 @@ public class MovimientoFacade extends AbstractFacade<Movimiento> implements Movi
         List<Movimiento> listaMovimientos = null;
 
         try {
-            Query sql = em.createNamedQuery("Movimiento.findByCedula")
-                    .setParameter("numCedula", numCedula);
+            Query sql = em.createNamedQuery("Movimiento.findByCedulaCuenta")
+                    .setParameter("numCedula", numCedula)
+                    .setParameter("numCuenta", numCuenta);
 
             listaMovimientos = sql.getResultList();
 

@@ -29,4 +29,6 @@ public interface ClienteFacadeLocal {
 
     int count();
     
+    Cliente buscarPorCedula(String numCedula);
+    
 }

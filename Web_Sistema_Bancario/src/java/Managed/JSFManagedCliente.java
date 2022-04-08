@@ -25,28 +25,51 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean(name = "JSFManagedCliente")
 @SessionScoped
-
 public class JSFManagedCliente implements Serializable {
 
     @EJB
     private ClienteFacadeLocal manejadorCliente;
     private Cliente cliente;
     private List<Cliente> listaClientes;
-    
     @EJB
     private TipoCuentaFacadeLocal manejadorTipocuenta;
     private TipoCuenta tipoCuenta;
-
     @EJB
     private CuentaFacadeLocal manejadorCuenta;
     private Cuenta cuenta;
     private String numCedula;
     private Character codCuenta;
-    
-    @EJB 
+    private Long codigoCuenta;
+
+    public Long getCodigoCuenta() {
+        return codigoCuenta;
+    }
+
+    public void setCodigoCuenta(Long codigoCuenta) {
+        this.codigoCuenta = codigoCuenta;
+    }
+    @EJB
     private MovimientoFacadeLocal manejadorMovimiento;
     private List<Movimiento> listaMovimientos;
-    
+    private List<Cuenta> listaCuentas;
+
+    public List<Cuenta> getListaCuentas() {
+        return manejadorCuenta.findAll();
+    }
+
+    public void setListaCuentas(List<Cuenta> listaCuentas) {
+        this.listaCuentas = listaCuentas;
+    }
+    private Movimiento movimiento;
+
+    public Movimiento getMovimiento() {
+        return movimiento;
+    }
+
+    public void setMovimiento(Movimiento movimiento) {
+        this.movimiento = movimiento;
+    }
+
     public JSFManagedCliente() {
     }
 
@@ -54,31 +77,55 @@ public class JSFManagedCliente implements Serializable {
         manejadorCliente.create(cliente);
     }
 
-    public void grabarTipoCuenta(){
+    public void grabarTipoCuenta() {
         manejadorTipocuenta.create(tipoCuenta);
     }
-    
+
     public void grabarCuenta() {
         this.cuenta.setCodCuenta(manejadorTipocuenta.find(codCuenta));
         this.cuenta.setNumCedula(manejadorCliente.find(numCedula));
         manejadorCuenta.create(cuenta);
     }
-    
+
+    public void grabarMovimiento() {
+        this.movimiento.setNumCedula(manejadorCliente.find(numCedula));
+        this.movimiento.setNumCuenta(manejadorCuenta.find(codigoCuenta));
+        System.out.println("XX: " + manejadorCuenta.find(codigoCuenta));
+        System.out.println("XX: " + manejadorCliente.find(numCedula));
+        System.out.println("XX: MOvimiento" + movimiento.getFechaMov());
+        System.out.println("XX: MOvimiento" + movimiento.getNumMovimiento());
+        System.out.println("XX: MOvimiento" + movimiento.getValCredito());
+        System.out.println("XX: MOvimiento" + movimiento.getValDebito());
+        manejadorMovimiento.create(movimiento);
+    }
+
     public void listarClientes() {
         setListaClientes(manejadorCliente.findAll());
     }
-/*manejadorCliente.find("1717739088")*/
+    /*manejadorCliente.find("1717739088")*/
+
     public void listarMovimientos() {
-        setListaMovimientos(manejadorMovimiento.retornarMovimientos(manejadorCliente.find("1717739088")));
+        setListaMovimientos(manejadorMovimiento.findAll());
     }
-    
+
+    public void buscarMovimientos() {
+        Cliente tempCliente = manejadorCliente.find(numCedula);
+        Cuenta tempCuenta = manejadorCuenta.find(codigoCuenta);
+        System.out.println("XX:tempCliente" + tempCliente);
+        System.out.println("XX:tempCuenta" + tempCuenta);
+        System.out.println("XX:" + manejadorMovimiento.retornarMovimientos(tempCliente, tempCuenta));
+        setListaMovimientos(manejadorMovimiento.retornarMovimientos(tempCliente, tempCuenta));
+        System.out.println("XX:listaMovimientos" + this.listaMovimientos);
+    }
+
     @PostConstruct
     private void inicio() {
         cliente = new Cliente();
         tipoCuenta = new TipoCuenta();
         cuenta = new Cuenta();
+        movimiento = new Movimiento();
         listarClientes();
-        listarMovimientos();
+//        listarMovimientos();
     }
 
     public Cliente getCliente() {
@@ -90,7 +137,7 @@ public class JSFManagedCliente implements Serializable {
     }
 
     public List<Cliente> getListaClientes() {
-        return listaClientes;
+        return manejadorCliente.findAll();
     }
 
     public void setListaClientes(List<Cliente> listaClientes) {
@@ -130,13 +177,10 @@ public class JSFManagedCliente implements Serializable {
     }
 
     public List<Movimiento> getListaMovimientos() {
-        return listaMovimientos;
+        return this.listaMovimientos;
     }
 
     public void setListaMovimientos(List<Movimiento> listaMovimientos) {
         this.listaMovimientos = listaMovimientos;
     }
-
-   
-    
 }

@@ -7,36 +7,32 @@
 
     <f:view contentType="text/html">
         <h:head>
-            <f:facet name="listarMovimientos">
+            <f:facet name="listarClientes">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-                <title>Listar Movimientos</title>
+                <title>Listar Cliente</title>
             </f:facet>
         </h:head>
 
         <h:body>
             <h:form>
-                <p:dataTable var="idx_cli" value="#{JSFManagedCliente.listaClientes}">
+                <p:dataTable var="idx_mov" value="#{JSFManagedBeanMovimientos.listaMovimientos}">
                     <f:facet name="titulo">
-                        <h:outputText value="Lista de Clientes"/>
+                        <h:outputText value="Lista de Movimientos"/>
                     </f:facet>
                     <p:column headerText="Número de Cédula">
-                        <h:outputText value="#{idx_cli.numCedula}"/>
+                        <h:outputText value="#{idx_mov.numCedula.numCedula}"/>
                     </p:column>
-                    <p:column headerText="Apellidos">
-                        <h:outputText value="#{idx_cli.apellidos}"/>
+                    <p:column headerText="Número de Cuenta">
+                        <h:outputText value="#{idx_mov.numCuenta.numCuenta}"/>
                     </p:column>
-                    <p:column headerText="Nombres">
-                        <h:outputText value="#{idx_cli.nombres}"/>
+                    <p:column headerText="Valor del Crédito">
+                        <h:outputText value="#{idx_mov.valCredito}"/>
                     </p:column>
-                    <p:column headerText="Usuario">
-                        <h:outputText value="#{idx_cli.usuario}"/>
-                    </p:column>
-                    <p:column headerText="Clave">
-                        <h:outputText value="#{idx_cli.clave}"/>
+                    <p:column headerText="Valor del Débito">
+                        <h:outputText value="#{idx_mov.valDebito}"/>
                     </p:column>
                 </p:dataTable>
             </h:form>
-            <h:link outcome="menu" value="Regresar al menu" />
         </h:body>
     </f:view>
 </html>

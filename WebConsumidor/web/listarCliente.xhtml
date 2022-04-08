@@ -7,36 +7,39 @@
 
     <f:view contentType="text/html">
         <h:head>
-            <f:facet name="listarMovimientos">
+            <f:facet name="listarClientes">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-                <title>Listar Movimientos</title>
+                <title>Listar Cliente</title>
             </f:facet>
         </h:head>
 
         <h:body>
             <h:form>
-                <p:dataTable var="idx_cli" value="#{JSFManagedCliente.listaClientes}">
-                    <f:facet name="titulo">
-                        <h:outputText value="Lista de Clientes"/>
-                    </f:facet>
-                    <p:column headerText="Número de Cédula">
+                <p:panelGrid columns="2">
+                    <h:outputText value="Núm Cédula: "/>
+                    <p:inputText value="#{ManagedCliente.numCedula}"/>
+                    <p:commandButton value="Buscar" id="btnGrabar" action="#{ManagedCliente.consumirServicio()}" update="tablaClientes"/>
+                </p:panelGrid>
+                <p:dataTable id="tablaClientes" var ="idx_cli" value="#{ManagedCliente.clientes}">
+
+                    <p:column headerText="Numero de Cedula"  >
+
                         <h:outputText value="#{idx_cli.numCedula}"/>
                     </p:column>
-                    <p:column headerText="Apellidos">
-                        <h:outputText value="#{idx_cli.apellidos}"/>
-                    </p:column>
-                    <p:column headerText="Nombres">
+                    <p:column headerText="Nombre"  >
                         <h:outputText value="#{idx_cli.nombres}"/>
                     </p:column>
-                    <p:column headerText="Usuario">
+                    <p:column headerText="Apellido"  >
+                        <h:outputText value="#{idx_cli.apellidos}"/>
+                    </p:column>
+                    <p:column headerText="Usuario"  >
                         <h:outputText value="#{idx_cli.usuario}"/>
                     </p:column>
-                    <p:column headerText="Clave">
+                    <p:column headerText="Clave" >
                         <h:outputText value="#{idx_cli.clave}"/>
                     </p:column>
                 </p:dataTable>
             </h:form>
-            <h:link outcome="menu" value="Regresar al menu" />
         </h:body>
     </f:view>
 </html>
